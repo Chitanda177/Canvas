@@ -1,0 +1,362 @@
+<html>
+<head>
+<title>Pulse</title>
+</head>
+
+
+<script>
+var particles;
+var timer;
+var context;
+var canvas;
+var draw;
+var image;
+var imageTwo;
+var hearts;
+var triangle;
+var color;
+var square;
+var clouds;
+var lines;
+var title;
+function love(){
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	fillBackgroundColor(canvas,context);
+	var colors = ['purple','black','8B0000','#483D8B'];
+	for (var i=0;i<100;i++){}
+	var color = colors[Math.floor(Math.random()*colors.length)];
+	
+
+	drawSquare(canvas,context,color);
+	
+	var image = new Image();
+	
+image.src = 'http://i66.tinypic.com/25gv6vp.jpg';
+	image.onload = function(){
+	context.drawImage(image, 0,0,600,800);
+	
+	
+	
+	}
+	
+	
+	var title = makeTitle();
+	drawText(canvas,context,title);
+	function makeTitle(){
+	
+	var lines =[['Why'],['Is'], ['Blood'], ['In'], ['Our'] ,['Veins?']];
+	
+	
+	for (var t=0;t<lines.length;t++){
+	var random = Math.floor(Math.random()*lines[t].length);
+	title += lines[t][random];
+	
+
+	}
+	return title;
+	
+	}
+	
+	
+	
+	
+	
+function drawText(canvas,context,title){
+context.fillStyle ='white';
+context.font ='bold 7em sans-serif';
+context.textAlign ='right';
+context.fillText(title,canvas.width-30,canvas.height-50);
+}
+}
+	function makeParticles(){
+	particles =[];
+	for (var i=0; i<100; i++){
+	particles.push(new Particle());
+	this.size=Math.random();
+	
+	
+	}
+	
+	}
+
+	function moveParticles(){
+	context.globalCompositeOperation='source-over';
+	context.fillStyle='rgba(0,0,0,0.3)';
+	context.fillRect(0,0,canvas.width,canvas.height);
+	context.globalCompositeOperation='lighter';
+	for (var i=0; i< particles.length;i++){
+		
+		
+		
+		var p = particles [i];
+		context.beginPath();
+		context.arc(p.x,p.y,p.radius,0,Math.PI*2,true);
+		context.moveTo(250,200);
+		context.fillStyle =p.color;
+		//alert(p.color);
+		context.fill();
+		p.raduius-=60;
+		p.x+=p.vx;
+		p.y+=p.vy;
+		if(p.radius <50){
+		p.raduius-=30;
+		
+		}
+		if (p.radius<40){
+		p.raduius-=20;
+		}
+		if (p.radius>canvas.width+50){
+		p.raduius-=10;
+		}
+		if(p.radius >canvas.height+50){
+		p.raduius-=5;
+		}
+	}
+	}
+	function Particle(){
+	this.x = canvas.width/2;
+	this.y = canvas.height/2;
+	this.vx = Math.random() *60-5;
+	this.vy = Math.random()*60-5;
+	var colors = ['red','green','blue','orange','purple'];
+	this.color =colors[Math.floor(Math.random()*colors.length)];
+	this.radius=10;
+	
+	}
+Particle.prototype.draw = function() {
+  var radialGradient = context.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+  radialGradient.addColorStop(0, '#ff6633');
+  radialGradient.addColorStop(1, 'black');
+  context.fillStyle = radialGradient;
+  context.beginPath();
+  context.arc(this.x, this.y, this.size, 0, Math.PI * 2, true);
+  context.fill();
+  context.closePath();
+  }
+	
+function Heart(){
+	
+	var colors = ['red','green','blue','orange','purple'];
+	this.color =colors[Math.floor(Math.random()*colors.length)];
+}
+
+
+
+		function makeHearts(){
+		hearts=[];
+		for (var j=0;j<100;j++){
+		hearts.push(new Heart());
+		this.size=Math.random();
+		
+		}
+		
+		
+		}
+		
+		function moveHearts(){
+		
+		context.globalCompositeOperation='source-over';
+		context.fillStyle='rgba(0,0,0,0.5)';
+		context.fillRect(0,0,canvas.width,canvas.height);
+		context.globalCompositeOperation='lighten';
+		for (var j=0; j< hearts.length;j++){
+		
+		
+		
+	var h = hearts [j];
+	context.beginPath();
+    context.moveTo(100, 40);
+    context.bezierCurveTo(75, 37, 70, 25, 50, 25);
+    context.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
+    context.bezierCurveTo(20, 80, 40, 102, 75, 120);
+    context.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
+    context.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
+    context .bezierCurveTo(85, 25, 75, 37, 75, 40);
+    context.fill();
+	context.fillStyle = h.color;
+		
+		
+	}
+	
+	
+	
+	}
+Heart.prototype.draw = function() {
+  var radialGradient = context.createRadialGradient;
+  radialGradient.addColorStop(0, '#ff6633');
+  radialGradient.addColorStop(1, 'black');
+  context.fillStyle = radialGradient;
+  context.beginPath();
+    context.moveTo(100, 40);
+    context.bezierCurveTo(75, 37, 70, 25, 50, 25);
+    context.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
+    context.bezierCurveTo(20, 80, 40, 102, 75, 120);
+    context.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
+    context.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
+    context .bezierCurveTo(85, 25, 75, 37, 75, 40);
+  context.fill();
+  context.closePath();
+  }	
+	
+	
+	
+
+ function fillBackgroundColor(canvas, context){
+	var colors = ['purple','black','#8B0000','#483D8B'];
+	var color = colors[Math.floor(Math.random()*colors.length)];
+	
+	context.fillStyle= color;
+	context.fillRect(0,0,canvas.width,canvas.height);
+ }
+ 
+ 
+function drawSquare(){
+var x = Math.floor(Math.random()*canvas.width);
+var y= Math.floor(Math.random()* canvas.height);
+context.beginPath();
+context.fillStyle = color;
+context.fillRect(150,150,600,600);
+
+}
+
+ function drawTriangle() {
+  var canvas = document.getElementById('canvas');
+  if (canvas.getContext) {
+    var context = canvas.getContext('2d');
+
+    context.beginPath();
+    context.moveTo(125, 100);
+    context.lineTo(150, 125);
+    context.lineTo(150, 75);
+    context.fill();
+	
+	
+	
+  }
+}
+
+ function Cloud (){
+	
+	var colors = ['red','green','blue','orange','purple'];
+	this.color =colors[Math.floor(Math.random()*colors.length)];
+}
+
+function makeClouds(){
+		clouds=[];
+		for (var l=0;l<60;l++){
+		clouds.push(new Cloud());
+		this.size=Math.random();
+		
+		}
+		}
+		
+	function moveClouds(){
+		
+		context.globalCompositeOperation='source-over';
+		context.fillStyle='rgba(0,0,0,0.5)';
+		context.fillRect(0,0,canvas.width,canvas.height);
+		context.globalCompositeOperation='xor';
+		for (var l=0; l<clouds.length;l++){
+		
+		
+		
+	var c = clouds [l];
+	context.beginPath();
+      context.moveTo(170, 80);
+      context.bezierCurveTo(140, 140, 140, 160, 240, 160);
+      context.bezierCurveTo(260, 190, 330, 190, 350, 160);
+      context.bezierCurveTo(430, 160, 430, 130, 400, 110);
+      context.bezierCurveTo(440, 50, 380, 40, 350, 60);
+      context.bezierCurveTo(330, 15, 260, 30, 260, 60);
+      context.bezierCurveTo(210, 15, 160, 30, 180, 70);
+ context.closePath();
+    context.fill();
+	
+		
+	}
+
+
+
+
+}	
+ 
+
+Cloud.prototype.draw= function(){
+context.beginPath();
+      context.moveTo(170, 80);
+      context.bezierCurveTo(140, 140, 140, 160, 240, 160);
+      context.bezierCurveTo(260, 190, 330, 190, 350, 160);
+      context.bezierCurveTo(430, 160, 430, 130, 400, 110);
+      context.bezierCurveTo(440, 50, 380, 40, 350, 60);
+      context.bezierCurveTo(330, 15, 260, 30, 260, 60);
+      context.bezierCurveTo(210, 15, 160, 30, 180, 70);
+ context.closePath();
+ context.fill();
+ }
+
+  
+  
+  
+function init(){
+audio = document.getElementById ("audio");
+ audio.addEventListener("playing", drawGradient, false);
+            audio.addEventListener("pause", stop, false);
+            audio.addEventListener("ended", stop, false);
+			
+			
+		}	
+
+  
+
+ 
+window.onload =function(){
+canvas = document.getElementById('canvas');
+		context = canvas.getContext ('2d');
+
+
+	var button = document.getElementById('Button');
+	button.onclick= love;
+	
+	
+	
+	makeParticles();
+	makeHearts();
+	drawSquare();
+	drawTriangle();
+	makeClouds();
+	moveParticles();
+	moveHearts();
+	moveClouds();
+	timer= setInterval(moveParticles,550);
+	timer= setInterval(moveHearts,500);
+	timer= setInterval(moveClouds,650);
+
+};
+
+
+</script>
+
+<body>
+
+
+	<canvas id = "canvas" width="1200" height ="700"></canvas>
+	<input type  = "button"id="Button" value ="Heartbeat"></input>
+	<audio controls>
+	<audio autoplay loop controls id="audio"  >
+<source src = "Bleach.ogg" type ="audio/ogg">
+
+<source src ="Bleach.mp3"
+type="audio/mpeg">
+
+</audio>
+
+
+	</body>
+
+
+	
+	
+	
+	</html>
+	
